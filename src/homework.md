@@ -1,0 +1,12 @@
+-create a repository
+-Initialize the repository
+-node_modules,package.json,package-lock.json
+-install express
+-create a server
+-Listen to Port 7777
+-write request handler for /test,/hello
+-install nodemon
+-update script in package.json
+-what are dependencies
+-what is the use of "-g" while npm install
+-Difference between caret and tilda (^ || ~)
