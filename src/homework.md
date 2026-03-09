@@ -12,6 +12,7 @@
 -Difference between caret and tilda (^ || ~)
 
 
+//Routing and request handler
 
 -initialize the git
 -gitignore
@@ -25,3 +26,11 @@
 -use if regex in routes /a/, ,/.*fly$/
 -Reading the query params in the routes
 -Reading the dynamic routes
+
+
+
+//Middleware and error handlers
+-multiple route handler-play with the code
+-next()
+-next function and errors along with res.send()
+-practice the code
