@@ -14,12 +14,19 @@ const app = express();
 
 
 //get request to the root route
-app.get("/user", (req, res) => {
-    res.send({
-        firstName: "Abhijeet",
-        lastName: "Kumar",
+// app.get("/user", (req, res) => {
+//     res.send({
+//         firstName: "Abhijeet",
+//         lastName: "Kumar",
 
-    })
+//     })
+// });
+
+//passing the user id
+app.get("/user/:userId/:name", (req, res) => {
+    const params = req.params;
+    console.log(params);
+    res.send(`User id is ${params.userId}`);
 });
 
 
