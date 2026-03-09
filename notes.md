@@ -1,3 +1,5 @@
+Ep-03 and 04
+
 const express = require('express');
 
 
@@ -30,18 +32,22 @@ app.post("/user", (req, res) => {
 });
 
 
-//delete method
-
-app.delete("/user", (req, res) => {
-    res.send("This is a delete request");
-});
-
-
 app.use("/hello", (req, res) => {
     res.send("Hello hello hello");
 });
 
+app.use("/hello/2", (req, res) => {
+    res.send("abra ka dabra...!!")
+})
 
+
+app.use("/signup", (req, res) => {
+    res.send("This is the sign up page");
+});
+
+app.use("/", (req, res) => {
+    res.send("Namaste from the dashboard");
+});
 
 
 //app is listening on the port 3000

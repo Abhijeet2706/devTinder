@@ -10,3 +10,14 @@
 -what are dependencies
 -what is the use of "-g" while npm install
 -Difference between caret and tilda (^ || ~)
+
+
+
+-initialize the git
+-gitignore
+-create a remote app in github
+-push all the code to remote origin
+-play with routes and route extension ex. hello, / , hello/2, /xys
+-order of routes matter a lot 
+-install postman app and make a workspace/collection > test Get Api call
+-write logic to handle GET,POST,PUT,PATCH and DELETE API calls and test them on POSTMAN
