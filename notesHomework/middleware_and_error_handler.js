@@ -135,6 +135,7 @@ app.get("/admin/getValidate", (req, res) => {
 
 
 //ERROR HANDLER MIDDLEWARE
+
 //error handler middleware is a middleware that is used to handle errors in the application. 
 // It is defined as a function that takes four parameters: err, req, res, next.
 // The err parameter is the error object that is passed to the next() function in the route handler. 
