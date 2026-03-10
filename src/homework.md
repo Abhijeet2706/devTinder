@@ -34,3 +34,9 @@
 -next()
 -next function and errors along with res.send()
 -practice the code
+-What is Middleware
+-How Express JS basically handles request behind the scene
+-Difference between app.use and app.all
+-write a dummy auth middleware for admin
+-write a dummy auth middleware for all user routes, except user/login
+-Error handling using  the app.use("/",(err,req,res,next)=>{})
