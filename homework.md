@@ -57,3 +57,6 @@
 -Difference between the JSON and javascript object
 -Add the experess.json middleware to the app
 -make your signup api dynamic and recive the data from the end user
+-If you are doing user.findOne with duplicate email id which object would returned.
+-API GET user by email
+-API - //Feed api -GET /feed -get all the users from the database.

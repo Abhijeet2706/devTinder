@@ -17,7 +17,6 @@ connectDB().then(() => {
     console.error("Database connection failed:", error);
 });
 
-
 app.post("/signup", async (req, res) => {
     try {
         const body = req.body || {};
@@ -29,4 +28,46 @@ app.post("/signup", async (req, res) => {
         console.error("Error creating user:", error);
         res.status(500).send("Internal Server Error");
     }
+});
+
+
+//getting one record at a time
+app.get("/user", async (req, res) => {
+    try {
+        const userEmail = req.body.emailId;
+        if (!userEmail) {
+            return res.status(400).send("Email ID is required");
+        };
+
+        if (userEmail?.length === 0) {
+            return res.status(404).send("user not found");
+        } else {
+            const user = await User.findOne({ emailId: userEmail });
+            res.status(200).json({
+                message: "User fetched successfully",
+                user: user
+            })
+        }
+    } catch (error) {
+        res.status(500).send("Internal Server Error");
+    }
 })
+
+//Feed api -GET /feed -get all the users from the database.
+app.get("/feed", async (req, res) => {
+    try {
+        const users = await User.find({});
+        res.status(200).json({
+            message: "User fetched successfully",
+            user: users,
+            total: users.length
+        })
+    } catch (error) {
+        res.status(500).send("Internal Server Error");
+    }
+})
+
+
+
+
+
