@@ -59,4 +59,19 @@
 -make your signup api dynamic and recive the data from the end user
 -If you are doing user.findOne with duplicate email id which object would returned.
 -API GET user by email
+-create a delete user api
 -API - //Feed api -GET /feed -get all the users from the database.
+-API-Patch update the api
+-explore the mongoose documentation for model method
+-what are options in a Model.findOneAndUpdate method,and explore more about it.
+-api-update the user with email id
+
+
+
+//Data sanitization and schema validation
+-Explore SchemaType options from the documentaion
+-add required,unique,min,max,defaultValue,trim
+-Add default
+-create a custom validation function.
+-Improve the DB schema-PUT all appropriate validations on each field in schema,
+-Add timeStamps in the user Schema
