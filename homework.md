@@ -75,3 +75,9 @@
 -create a custom validation function.
 -Improve the DB schema-PUT all appropriate validations on each field in schema,
 -Add timeStamps in the user Schema
+-Add validation in skills section like we can'pass skills more then 5
+-Add api level validation on patch request & signup post api
+-DATA Santization - Add api validation for each field
+-install validator
+-Explore validator library function and validator function for password,email,photo url
+
