@@ -80,4 +80,5 @@
 -DATA Santization - Add api validation for each field
 -install validator
 -Explore validator library function and validator function for password,email,photo url
+-never trust request body
 
