@@ -82,3 +82,11 @@
 -Explore validator library function and validator function for password,email,photo url
 -never trust request body
 
+
+
+//Encrypting password
+-validate data in SIGNUP api
+-Install bcrypt package
+-create paswordHash using bcrypt .hash and save the user is encrypted password
+-
+
