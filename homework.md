@@ -88,5 +88,6 @@
 -validate data in SIGNUP api
 -Install bcrypt package
 -create paswordHash using bcrypt .hash and save the user is encrypted password
--
+-create login api and write a logic by your own
+-Validate the data and compare password and throw error if email or password and wrong
 
