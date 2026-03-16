@@ -1,107 +1,19 @@
 const express = require("express");
 const connectDB = require("./config/database");
 const User = require("./models/User");
-
+const bcrypt = require("bcrypt");
+const validator = require("validator");
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
 const app = express();
+const { userAuth } = require("./middlewares/auth")
+const { validateSignupData } = require("./utils/validation");
 
 app.use(express.json());  // Middleware to parse JSON request bodies into JavaScript objects
 
 
-
-//signup api -POST /signup -create a new user in the database.
-app.post("/signup", async (req, res) => {
-    try {
-        const body = req?.body || {};
-        const user = new User(body);
-        await user.save();
-        res.status(201).json({
-            message: "User created successfully",
-            user: user
-        })
-
-    } catch (error) {
-        res.status(400).json({
-            message: "Error saving the user",
-            error: error.message
-        })
-    }
-})
-
-//getting one record at a time
-//even when you have the same email id for the user, it will return the first record that matches the email id.
-app.get("/user", async (req, res) => {
-    try {
-        const userEmail = req.body.emailId;
-        if (!userEmail) {
-            res.status(404).json("User not found");
-        } else {
-            const user = await User.findOne({ emailId: userEmail });
-            res.status(200).json({
-                message: "User fetched successfully",
-                user: user
-            })
-        }
-
-    } catch (error) {
-        res.status(500).json({
-            message: "Internal Server Error",
-            error: error.message
-        })
-    }
-});
-
-//Feed api -GET /feed -get all the users from the database.
-app.get("/feed", async (req, res) => {
-    try {
-        const users = await User.find({});
-        res.status(200).json({
-            message: "User fetched successfully",
-            user: users,
-            total: users.length
-        })
-
-    } catch (error) {
-        res.status(500).json({
-            message: "Internal Server Error",
-            error: error.message
-        })
-    }
-});
-
-//Delete api -DELETE /user -delete a user from the database.
-app.delete("/user", async (req, res) => {
-    try {
-        const userId = req.body.userId;
-        if (!userId) {
-            res.status(404).send("Required user id to deleteing the user")
-        } else {
-            //  await User.findOneAndDelete({ _id: userId })
-            const user = await User.findByIdAndDelete(userId);
-            res.status(200).send("User deleted successfully")
-        }
-
-    } catch (error) {
-        console.log("Error whilte deleting the user", error);
-        res.status(500).send("Internal server error")
-    }
-});
-
-
-//patch -update 
-app.patch("/user", async (req, res) => {
-    try {
-        const { userId, ...data } = req.body;
-        if (!userId) {
-            return res.status(400).send("user id not found");
-        }
-
-        const user = await User.findByIdAndUpdate(userId, data);
-        res.status(200).send("updated the user successfully")
-
-    } catch (error) {
-        res.status(500).send("Internal server error")
-    }
-})
+//paring the cookie
+app.use(cookieParser());
 
 connectDB().then(() => {
     console.log("Database connected successfully")
@@ -111,4 +23,98 @@ connectDB().then(() => {
 }).catch((error) => {
     console.error("Error connecting to database:", error)
 })
+//creating a login api
+app.post("/login", async (req, res) => {
+    try {
+        const {
+            emailId,
+            password
+        } = req.body;
+
+        if (!validator.isEmail(emailId)) {
+            throw new Error("not found")
+        };
+
+        //first we will check the user the available or not
+        const user = await User.findOne({ emailId: emailId });
+        if (!user) {
+            throw new Error("Invalid credentials");
+        }
+
+        //comparing the password with user password
+        const isPasswordValid = await user.validatePassword(password);  //this validatePassword is the function written in userSchema file.
+        if (isPasswordValid) {
+            //create a JWT token
+
+            const token = await user.getJWT();  //the getJWT function is the user instance which is coming from the userSchema
+
+            //Add the token to the cookie and send the response back to the user
+            res.cookie("token", token, {
+                // httpOnly: only,
+                expires: new Date(Date.now() + 8 * 3600000) //expires in 8 hours
+
+            }) //10
+            res.status(201).send("login successful!!")
+        } else {
+            throw new Error("Invalid credentails")
+        }
+
+    } catch (error) {
+        res.status(400).send("Error " + error.message)
+    }
+});
+
+
+//profile api
+app.get("/profile", userAuth, async (req, res) => {
+    try {
+        const user = req?.user;  //this is the user where we are settting inside the middleware
+        if (!user) {
+            throw new Error("User does not exist")
+        }
+
+        res.status(200).send(user)
+
+    } catch (error) {
+        res.status(400).send("ERROR " + error.message)
+    }
+})
+//getting one record at a time
+app.get("/user", async (req, res) => {
+    try {
+        const userEmail = req.body.emailId;
+        if (!userEmail) {
+            return res.status(400).send("Email ID is required");
+        };
+
+        if (userEmail?.length === 0) {
+            return res.status(404).send("user not found");
+        } else {
+            const user = await User.findOne({ emailId: userEmail });
+            res.status(200).json({
+                message: "User fetched successfully",
+                user: user
+            })
+        }
+    } catch (error) {
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+
+app.post("/sendConnectionRequest", userAuth, async (req, res) => {
+
+
+    try {
+        const user = req.user;
+        console.log("Sending any request");
+
+        res.send(user.firstName + " sent the connection request")
+
+    } catch (error) {
+        console.log("ERROR " + error.message)
+    }
+})
+
+
 

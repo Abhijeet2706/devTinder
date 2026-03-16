@@ -91,3 +91,15 @@
 -create login api and write a logic by your own
 -Validate the data and compare password and throw error if email or password and wrong
 
+
+
+//Authentication,jWT and Tokens
+-install JWT and Cookie parser
+-send a dummy cookie to user
+-create GET/profile api and check if you get the cookie back
+-install JWT token 
+-In login api,after email and password validation, create a JWT token and send to the user inside cookiew
+-Read the cookie inside the profile api and find the loggedin user 
+-userAuth middleware
+-add userAuth middleware in profile api and new sendConnectionRequest api
+-set the expiry of jwt token and cookie for 7 day
