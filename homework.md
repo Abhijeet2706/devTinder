@@ -12,7 +12,7 @@
 -Difference between caret and tilda (^ || ~)
 
 
-//Routing and request handler
+# Routing and request handler
 
 -initialize the git
 -gitignore
@@ -29,7 +29,7 @@
 
 
 
-//Middleware and error handlers
+# Middleware and error handlers
 -multiple route handler-play with the code
 -next()
 -next function and errors along with res.send()
@@ -43,7 +43,7 @@
 
 
 
-//Database,schema and models/Mongoose
+# Database,schema and models/Mongoose
 -Create a free cluster on mongoDB official website(mongoDB Atlas)
 -Install mongoose library
 -connect your application to the <connection-url/> database/devTinder
@@ -53,7 +53,7 @@
 -push some document using api calls from postman
 
 
-//diving into the api's
+# diving into the api's
 -Difference between the JSON and javascript object
 -Add the experess.json middleware to the app
 -make your signup api dynamic and recive the data from the end user
@@ -68,7 +68,7 @@
 
 
 
-//Data sanitization and schema validation
+# Data sanitization and schema validation
 -Explore SchemaType options from the documentaion
 -add required,unique,min,max,defaultValue,trim
 -Add default
@@ -84,7 +84,7 @@
 
 
 
-//Encrypting password
+# Encrypting password
 -validate data in SIGNUP api
 -Install bcrypt package
 -create paswordHash using bcrypt .hash and save the user is encrypted password
@@ -93,7 +93,7 @@
 
 
 
-//Authentication,jWT and Tokens
+# Authentication,jWT and Tokens
 -install JWT and Cookie parser
 -send a dummy cookie to user
 -create GET/profile api and check if you get the cookie back
@@ -103,3 +103,15 @@
 -userAuth middleware
 -add userAuth middleware in profile api and new sendConnectionRequest api
 -set the expiry of jwt token and cookie for 7 day
+-create userSchema method to get the getJWT()
+-create userSchema method to compare the password
+
+
+# Diving into api's and express router
+-Explore the tinder api
+-Create a list of all api , you can think of in devTinder
+-group multiple routes under respective routers
+-Read documentation for express router
+-create routes folder for managing auth,profile,request,routers
+-create authRouter,profileRouter,requestRouter
+-Import these routers in app.js
