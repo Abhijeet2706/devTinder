@@ -34,7 +34,8 @@ const userAuth = async (req, res, next) => {
         if (!user) {
             throw new Error("User not found")
         };
-        req.user = user
+        //loggedi user
+        req.user = user //this user we will get where this auth gets called
         next(); //to move to the next request handler
     } catch (error) {
         console.log("Error " + error.message)
