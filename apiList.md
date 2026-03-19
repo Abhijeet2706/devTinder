@@ -17,6 +17,11 @@
 
 # ConnectionRequestRouter
 * Sending a connection request
+<!-- We can make this all 4 api dynamic with only one api -->
+ * POST /request/send/status/:userId
+
+
+
 -POST /request/send/intsrested/:userId
 -POST /request/send/ignored/:userId
 <!-- * Accept or reject the connection request -->
@@ -33,7 +38,7 @@
 
 
 # Status 
-ignore
+ignored
 interested
 accepted
 rejected

@@ -115,3 +115,22 @@
 -create routes folder for managing auth,profile,request,routers
 -create authRouter,profileRouter,requestRouter
 -Import these routers in app.js
+-create post/logout api
+-create patch profile/edit api 
+-create patch profile/password api-forgot password api
+-Make sure you validate all data in every POST,PATCH api
+
+
+# Logical DB query and compund indexing
+-create a connection request schema
+-Add proper validation
+-Send connection request api
+-Think about all cornor cases and handle them
+-$or query and $and query-Read more about this
+-Read more about the query
+-schema.pre function for validation
+-Read this article about compund indexing
+-why do we need index in DB
+-what is the advantages and disadvantages of creating the indexing
+-Read more about the indexes in mongoDB
+
