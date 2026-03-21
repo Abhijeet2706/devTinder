@@ -134,3 +134,13 @@
 -what is the advantages and disadvantages of creating the indexing
 -Read more about the indexes in mongoDB
 
+-Always think about cornor cases.
+
+
+# ref,populate and thought process of writing the api
+- Write code with proper validation for POST /request/review/:status/:requestId
+-thought process of GET and POST
+-Create GET /user/request/received/ with all the checks
+-Read about populate method (https://mongoosejs.com/docs/populate.html)
+-
+

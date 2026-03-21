@@ -31,8 +31,8 @@
 
 # userRouter
 <!-- * To get all my connection or matches -->
+-GET /user/request/received
 -GET /user/connections
--GET /user/request
 <!-- * get you the profiles of other users on platform -->
 -GET /user/feed
 
