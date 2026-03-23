@@ -2,6 +2,7 @@ const express = require("express");
 const { userAuth } = require("../middlewares/auth");
 const userRouter = express.Router();
 const connectionRequestModel = require("../models/connectionRequest");
+const User = require("../models/User")
 
 
 const USER_SAFE_DATA = "firstName lastName age gender skills about photoUrl"
@@ -68,6 +69,56 @@ userRouter.get("/user/connection", userAuth, async (req, res) => {
             message: "ERROR " + error.message
         })
     }
+});
+
+
+//Feed api 
+/**
+ * 1. User should see all the other user card except his own card
+ * 2. Only profile which doest not have actioned by the user or from the user (his connection)
+ * 3. should not see the ignored 
+ * 4. already sent the connection request
+ */
+
+userRouter.get("/feed", userAuth, async (req, res) => {
+    try {
+        const loggedInUser = req.user;
+
+
+        //find out all the connection request either I sent or receive
+        const connectionRequest = await connectionRequestModel.find({
+            $or: [
+                { fromUserId: loggedInUser._id },
+                { toUserId: loggedInUser._id }
+            ]
+        }).select("fromUserId toUserId")
+
+
+        const hideUsersFromFeed = new Set();  // It is like an array and will make unique element 
+        connectionRequest.forEach(req => {
+            hideUsersFromFeed.add(req.fromUserId.toString());
+            hideUsersFromFeed.add(req.toUserId.toString());
+        });
+
+        //now find the rest of the user and loggedIn user it self should not be there
+        const users = await User.find({
+            $and: [
+                { _id: { $nin: Array.from(hideUsersFromFeed) } },
+                { _id: { $ne: loggedInUser._id } } //hiding the loggedin user it self
+            ]
+        }).select(USER_SAFE_DATA);
+        res.status(200).json({
+            data: users
+        })
+
+
+    } catch (error) {
+        res.status(400).json({
+            message: "ERROR " + error.message
+        })
+    }
 })
 
 module.exports = userRouter;
+
+

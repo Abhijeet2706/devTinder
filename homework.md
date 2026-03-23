@@ -142,5 +142,11 @@
 -thought process of GET and POST
 -Create GET /user/request/received/ with all the checks
 -Read about populate method (https://mongoosejs.com/docs/populate.html)
+- create GET /user/connection api
 -
 
+
+
+# Building Feed api and pagination
+- logic for GET /feed api
+- Explore the $nin $ne and other query operators
