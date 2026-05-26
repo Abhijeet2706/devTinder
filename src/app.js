@@ -13,9 +13,14 @@ const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profile");
 const requestRouter = require("./routes/request")
 const userRouter = require("./routes/user");
+const cors = require("cors")
 
-
-
+//we need to whitelist the frontend url in the cors options because our frontend is running on different port and backend is running on different port
+const corsOptions = {
+    origin: "http://localhost:5173", // Replace with your frontend URL
+    credentials: true, // Allow cookies to be sent in cross-origin requests
+};
+app.use(cors(corsOptions))
 app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/", requestRouter);

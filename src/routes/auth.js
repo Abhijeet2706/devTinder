@@ -62,7 +62,7 @@ authRouter.post("/login", async (req, res) => {
                 expires: new Date(Date.now() + 8 * 3600000) //expires in 8 hours
 
             }) //10
-            res.status(201).send("login successful!!")
+            res.status(200).send(user)
         } else {
             throw new Error("Invalid credentails")
         }
@@ -78,10 +78,11 @@ authRouter.post("/logout", async (req, res) => {
      * In big company we need to do some operation
      * we do some cleaning activity
      */
+    //res.clearCookie("token");
     res.cookie("token", null, {
         expires: new Date(Date.now())
     });
-    res.send("Logout successfull")
+    res.status(201).send("Logout successful")
 })
 
 module.exports = authRouter

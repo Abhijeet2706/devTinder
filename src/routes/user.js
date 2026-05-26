@@ -30,7 +30,7 @@ userRouter.get("/user/request/received", userAuth, async (req, res) => {
 });
 
 
-userRouter.get("/user/connection", userAuth, async (req, res) => {
+userRouter.get("/user/connections", userAuth, async (req, res) => {
     /**
      * All the connection who is my connection and accepted my request
      * only check the status is accepted
@@ -84,6 +84,15 @@ userRouter.get("/feed", userAuth, async (req, res) => {
     try {
         const loggedInUser = req.user;
 
+        //reading from the params
+        const page = parseInt(req.query.page) || 1;
+        let limit = parseInt(req.query.limit) || 10;
+        limit = limit > 50 ? 50 : limit;           //sanitize the limit and trying to keep the limit as 50 even if I get 1l from the query
+
+        //calculating the skip
+        const skip = (page - 1) * limit;
+
+
 
         //find out all the connection request either I sent or receive
         const connectionRequest = await connectionRequestModel.find({
@@ -106,8 +115,14 @@ userRouter.get("/feed", userAuth, async (req, res) => {
                 { _id: { $nin: Array.from(hideUsersFromFeed) } },
                 { _id: { $ne: loggedInUser._id } } //hiding the loggedin user it self
             ]
-        }).select(USER_SAFE_DATA);
+        }).select(USER_SAFE_DATA)
+            .skip(skip)
+            .limit(limit);
+        //applying paginarion
+        // /feed?page=1&limit=10=>first 10 users 1-10. - skip(0).limit(10)
+        // /feed?page=2&limt=10=>11-20. - skip(1).limit(10)
         res.status(200).json({
+            total: users.length,
             data: users
         })
 
@@ -117,7 +132,8 @@ userRouter.get("/feed", userAuth, async (req, res) => {
             message: "ERROR " + error.message
         })
     }
-})
+});
+
 
 module.exports = userRouter;
 

@@ -150,3 +150,7 @@
 # Building Feed api and pagination
 - logic for GET /feed api
 - Explore the $nin $ne and other query operators
+- pagination
+
+
+
